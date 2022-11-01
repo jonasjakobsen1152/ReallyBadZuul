@@ -12,17 +12,15 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.07.31
  */
+import java.util.HashMap;
 public class Room 
 {
     private String description;
+    private HashMap<String, Room> exits;
     private Room northExit;
     private Room southExit;
     private Room eastExit;
     private Room westExit;
-
-    private Room upExit;
-
-    private Room DownExit;
 
 public Room getExit(String direction)
 {
@@ -40,6 +38,13 @@ public Room getExit(String direction)
     }
     return null;
 }
+//Return the room that is reached if we go from this room in direction "direction". If there is no room in that direction return null.
+
+
+    public HashMap<String, Room> getExits() {
+        return exits;
+    }
+
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -49,6 +54,7 @@ public Room getExit(String direction)
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<String, Room>();
     }
 
     /**
@@ -59,18 +65,20 @@ public Room getExit(String direction)
      * @param south The south exit.
      * @param west The west exit.
      */
-    public void setExits(Room north, Room east, Room south, Room west) 
+    /**
+     * Define an exit from this room.
+     * @param direction The direction of the exit.
+     * @param neighbor The room in the given direction.
+     */
+    public void setExit(String direction, Room neighbor)
     {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
+        exits.put(direction, neighbor);
     }
 
+    public Room getExit(String direction)
+    {
+        return exits.get(direction);
+    }
 
 
     /**

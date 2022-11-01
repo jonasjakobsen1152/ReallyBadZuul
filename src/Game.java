@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-        
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -44,11 +44,17 @@ public class Game
         office = new Room("in the computing admin office");
         
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
+        outside.setExit("east", theater);
+        outside.setExit("south",lab);
+        outside.setExit("west",pub);
+
+        theater.setExit("west", outside);
+
+        pub.setExit("east",outside);
+
+        lab.setExit("north",outside);
+        lab.setExit("east",office);
+
 
         currentRoom = outside;  // start game outside
     }
@@ -88,21 +94,7 @@ public class Game
 
 
     public void printLocationInfo(){
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.getExit("north") != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.getExit("east") != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.getExit("South") != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.getExit("west") != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+
     }
     /**
      * Given a command, process (that is: execute) the command.
