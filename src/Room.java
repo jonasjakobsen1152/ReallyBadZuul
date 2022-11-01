@@ -61,26 +61,27 @@ public class Room
         exits.put(direction, neighbor);
     }
 
-    //public Room getExitString(String direction)
-    //{
-      //  return exits.get(direction);
-    //}
     public Room getExit(String direction)
     {
-        if(direction.equals("north")) {
-            return northExit;
-        }
-        if(direction.equals("east")) {
-            return eastExit;
-        }
-        if(direction.equals("south")) {
-            return southExit;
-        }
-        if(direction.equals("west")) {
-            return westExit;
-        }
-        return null;
+        return exits.get(direction);
     }
+
+    //public Room getExit(String direction)
+    //{
+      //  if(direction.equals("north")) {
+        //    return northExit;
+        //}
+        //if(direction.equals("east")) {
+          //  return eastExit;
+        //}
+        //if(direction.equals("south")) {
+          //  return southExit;
+        //}
+        //if(direction.equals("west")) {
+          //  return westExit;
+        //}
+        //return null;
+    //}
     /**
      * Return a description of the room’s exits,
      * for example "Exits: north west".
@@ -102,8 +103,5 @@ public class Room
     public String getDescription()
     {
         return description;
-    }
-
-    public void getExit() {
     }
 }
