@@ -13,7 +13,9 @@
  * @version 2011.07.31
  */
 import java.util.HashMap;
-public class Room 
+import java.util.Set;
+
+public class Room
 {
     private String description;
     private HashMap<String, Room> exits;
@@ -22,22 +24,6 @@ public class Room
     private Room eastExit;
     private Room westExit;
 
-public Room getExit(String direction)
-{
-    if(direction.equals("north")) {
-        return northExit;
-    }
-    if(direction.equals("east")) {
-        return eastExit;
-    }
-    if(direction.equals("south")) {
-        return southExit;
-    }
-    if(direction.equals("west")) {
-        return westExit;
-    }
-    return null;
-}
 //Return the room that is reached if we go from this room in direction "direction". If there is no room in that direction return null.
 
 
@@ -75,11 +61,40 @@ public Room getExit(String direction)
         exits.put(direction, neighbor);
     }
 
+    //public Room getExitString(String direction)
+    //{
+      //  return exits.get(direction);
+    //}
     public Room getExit(String direction)
     {
-        return exits.get(direction);
+        if(direction.equals("north")) {
+            return northExit;
+        }
+        if(direction.equals("east")) {
+            return eastExit;
+        }
+        if(direction.equals("south")) {
+            return southExit;
+        }
+        if(direction.equals("west")) {
+            return westExit;
+        }
+        return null;
     }
-
+    /**
+     * Return a description of the room’s exits,
+     * for example "Exits: north west".
+     * @return A description of the available exits.
+     */
+    public String getExitString()
+    {
+        String returnString = "Exits:";
+        Set<String> keys = exits.keySet();
+        for(String exit : keys) {
+            returnString += " " + exit;
+        }
+        return returnString;
+    }
 
     /**
      * @return The description of the room.
@@ -89,4 +104,6 @@ public Room getExit(String direction)
         return description;
     }
 
+    public void getExit() {
+    }
 }
