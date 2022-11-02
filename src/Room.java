@@ -65,23 +65,6 @@ public class Room
     {
         return exits.get(direction);
     }
-
-    //public Room getExit(String direction)
-    //{
-      //  if(direction.equals("north")) {
-        //    return northExit;
-        //}
-        //if(direction.equals("east")) {
-          //  return eastExit;
-        //}
-        //if(direction.equals("south")) {
-          //  return southExit;
-        //}
-        //if(direction.equals("west")) {
-          //  return westExit;
-        //}
-        //return null;
-    //}
     /**
      * Return a description of the room’s exits,
      * for example "Exits: north west".
@@ -95,6 +78,10 @@ public class Room
             returnString += " " + exit;
         }
         return returnString;
+    }
+
+    public String getLongDescription(){
+        return "You are " + description + ".\n" + getExitString();
     }
 
     /**

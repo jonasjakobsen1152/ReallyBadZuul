@@ -55,6 +55,7 @@ public class Game
         lab.setExit("north",outside);
         lab.setExit("east",office);
 
+        office.setExit("west",lab);
 
         currentRoom = outside;  // start game outside
     }
@@ -87,16 +88,14 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        System.out.println(currentRoom.getExitString());
+        System.out.println(currentRoom.getLongDescription());
     }
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private boolean processCommand(Command command) 
+    private boolean processCommand(Command command)
     {
         boolean wantToQuit = false;
 
@@ -104,13 +103,20 @@ public class Game
             System.out.println("I don't know what you mean...");
             return false;
         }
-
         String commandWord = command.getCommandWord();
+
         if (commandWord.equals("help")) {
             printHelp();
         }
         else if (commandWord.equals("go")) {
             goRoom(command);
+        }
+        else if(commandWord.equals("look")){
+            look();
+        }
+        else if(commandWord.equals("eat")){
+            eat();
+            look();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
@@ -132,7 +138,7 @@ public class Game
         System.out.println("around at the university.");
         System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
+        parser.showCommands();
     }
 
     /** 
@@ -156,12 +162,18 @@ public class Game
         }
         else {
             currentRoom = nextRoom;
-            System.out.println("You are " + currentRoom.getDescription());
-            System.out.println(currentRoom.getExitString());
+            System.out.println(currentRoom.getLongDescription());
 
         }
     }
 
+    private void look(){
+        System.out.println(currentRoom.getLongDescription());
+    }
+
+    private void eat(){
+        System.out.println("You have eaten and you are not hungry anymore");
+    }
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
